@@ -35,3 +35,6 @@ CAMBIOS COMERCIALES APLICADOS:
 
 
 Correcciones aplicadas: hero sintetizado, botones '🚨 Evaluación gratis' y título de Drone Finder actualizado.
+
+
+Correcciones aplicadas: se quitaron CTAs distractores del hero de Drone Finder, sirena verde, fuente tecnológica minimalista, botones proporcionados y logo en modo día con 'Studio' en negro.

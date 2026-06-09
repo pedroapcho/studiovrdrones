@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png?v=5">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <title>Studio VR | Drones DJI en Perú</title>
 <meta name="description" content="Studio VR: drones DJI para audiovisual, ingeniería y agricultura. Landing principal, Drone Finder y tienda.">
 <style>
@@ -554,6 +554,68 @@ body[data-theme="dark"] .kit-meta-block{
 @media(max-width:1100px){.service-grid,.trust-grid{grid-template-columns:repeat(2,1fr)}.advice-grid{grid-template-columns:1fr}}
 @media(max-width:768px){.service-grid,.trust-grid{grid-template-columns:1fr}.result-actions{flex-direction:column}}
 
+
+/* Final focus update: fewer CTAs, minimal tech typography, green siren, light logo */
+:root{
+  --font-display:'Sora',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+h1,h2,h3,.visual-main b,.fp-val,.placeholder-title,.price{
+  font-family:var(--font-display) !important;
+  font-weight:700 !important;
+  letter-spacing:-.045em !important;
+}
+h1{
+  font-size:clamp(39px,5.6vw,78px) !important;
+  line-height:1.02 !important;
+}
+h2{
+  font-size:clamp(27px,3.35vw,48px) !important;
+  line-height:1.06 !important;
+}
+.card h3,.kit-card h3,.panel h3,.product-card h3,.type-card h3,.service-card h3,.trust-card h3,.advice-card h3{
+  font-size:clamp(21px,1.65vw,25px) !important;
+  line-height:1.08 !important;
+}
+.btn,.nav-wa,.theme-icon{
+  font-family:var(--font-mono) !important;
+  font-size:clamp(10px,.72vw,12px) !important;
+  line-height:1 !important;
+  letter-spacing:.075em !important;
+  min-height:44px;
+}
+.btn{
+  padding:12px 22px !important;
+}
+.btns.single-cta{
+  gap:0;
+}
+.btns.single-cta .btn{
+  padding-inline:26px !important;
+}
+.siren-green{
+  display:inline-block;
+  filter:hue-rotate(105deg) saturate(2.4) brightness(1.08);
+  transform:translateY(-1px);
+}
+body[data-theme="light"] .brand img,
+body[data-theme="light"] .logo img,
+body[data-theme="light"] header img[src*="studiovr-logo"],
+body[data-theme="light"] nav img[src*="studiovr-logo"]{
+  content:url("assets/images/studiovr-logo-light.png");
+}
+@media(max-width:768px){
+  h1{font-size:clamp(35px,10vw,48px) !important}
+  h2{font-size:clamp(25px,8vw,38px) !important}
+  .btn{
+    font-size:11px !important;
+    min-height:43px;
+    padding:12px 18px !important;
+  }
+  .btns.single-cta .btn{width:auto}
+}
+
 </style>
 </head>
 <body data-theme="dark">
@@ -650,7 +712,7 @@ body[data-theme="dark"] .kit-meta-block{
         <h3>Drone suelto o kit completo</h3>
         <p>Podemos cotizar solo el drone o armar un paquete completo con baterías, filtros, maletín, cargadores, soporte inicial y orientación de uso.</p>
         <div class="commercial-note">La meta es que compres con seguridad: ni un equipo sobredimensionado ni un drone que se quede corto para tu trabajo.</div>
-        <a class="btn btn-p" href="drone-finder.html" style="margin-top:18px">🚨 Evaluación gratis</a>
+        <a class="btn btn-p" href="drone-finder.html" style="margin-top:18px"><span class="siren-green">🚨</span> Evaluación gratis</a>
       </article>
     </div>
   </div>
