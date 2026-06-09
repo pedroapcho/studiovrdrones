@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="robots" content="index, follow">
+<meta property="og:image" content="assets/images/og-image.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png?v=5">
+<link rel="shortcut icon" href="assets/images/favicon.ico?v=5">
+<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png?v=5">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>Studio VR | Drones DJI en Perú</title>
+<meta name="description" content="Studio VR: drones DJI para audiovisual, ingeniería y agricultura. Landing principal, Drone Finder y tienda.">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050505;--bg2:#080c10;--bg3:#0c1118;
+  --surface:rgba(255,255,255,.035);--surface2:rgba(255,255,255,.065);
+  --border:rgba(255,255,255,.075);--border2:rgba(255,255,255,.14);
+  --text:#efefef;--muted:rgba(239,239,239,.48);--muted2:rgba(239,239,239,.28);
+  --accent:#4fc3f7;--accent-dim:rgba(79,195,247,.12);--accent2:#a78bfa;--accent3:#34d399;--wa:#25d366;
+  --font-display:'Outfit',system-ui,sans-serif;--font-body:'DM Sans',system-ui,sans-serif;--font-mono:'Space Mono',monospace;
+  --shadow:0 24px 64px rgba(0,0,0,.58)
+}
+body[data-theme="light"]{
+  --bg:#f4f9ff;--bg2:#edf6ff;--bg3:#ffffff;
+  --surface:rgba(255,255,255,.72);--surface2:rgba(255,255,255,.92);
+  --border:rgba(8,27,44,.10);--border2:rgba(8,27,44,.20);
+  --text:#07111c;--muted:rgba(7,17,28,.58);--muted2:rgba(7,17,28,.35);
+  --accent:#159fe3;--accent-dim:rgba(21,159,227,.13);--accent2:#7c3aed;--accent3:#059669;
+  --shadow:0 24px 64px rgba(24,70,110,.13)
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;line-height:1.6;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .28s,color .28s
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-3;
+  background:radial-gradient(ellipse 70% 55% at 50% 0%,rgba(79,195,247,.095),transparent 60%),
+             radial-gradient(circle at 82% 14%,rgba(167,139,250,.07),transparent 32%),
+             linear-gradient(180deg,var(--bg),var(--bg2) 72%,var(--bg));
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px;animation:grain .8s steps(3) infinite
+}
+@keyframes grain{0%{transform:translate(0,0)}33%{transform:translate(-2px,1px)}66%{transform:translate(1px,-2px)}100%{transform:translate(-1px,0)}}
+a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}ul{list-style:none}button{font:inherit}
+#loader{position:fixed;inset:0;background:#020204;z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .6s,visibility .6s}
+#loader.out{opacity:0;visibility:hidden;pointer-events:none}.ld-logo{width:120px;height:auto;opacity:.86;animation:ldPulse 1.8s ease-in-out infinite}
+@keyframes ldPulse{0%,100%{opacity:.45}50%{opacity:1}}.ld-bar-wrap{width:180px;height:1px;background:rgba(255,255,255,.08);overflow:hidden}.ld-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;transition:width 1.15s cubic-bezier(.4,0,.2,1)}
+#nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:transparent;border-bottom:1px solid transparent;transition:padding .35s,background .35s,border-color .35s,backdrop-filter .35s}
+#nav.stuck{padding:12px 48px;background:rgba(5,5,5,.9);border-bottom-color:var(--border);backdrop-filter:blur(20px)}
+body[data-theme="light"] #nav.stuck{background:rgba(244,249,255,.86)}
+.nav-logo-img{width:78px;height:auto;object-fit:contain;display:block;opacity:.95;transition:opacity .2s}.nav-logo-img:hover{opacity:.7}
+.nav-links{display:flex;gap:30px;align-items:center}.nav-links a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);transition:color .2s;font-weight:400;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-end{display:flex;gap:12px;align-items:center}
+.theme-icon{width:38px;height:38px;border:1px solid var(--border2);background:var(--surface);color:var(--text);display:grid;place-items:center;font-size:16px;line-height:1;transition:background .2s,border-color .2s,transform .2s}
+.theme-icon:hover{background:var(--surface2);border-color:rgba(79,195,247,.32);transform:translateY(-1px)}
+.nav-wa{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--wa);border:1px solid rgba(37,211,102,.25);padding:9px 16px;transition:background .2s}
+.nav-wa:hover{background:rgba(37,211,102,.08)}.nav-wa-dot{width:5px;height:5px;background:var(--wa);border-radius:50%;box-shadow:0 0 6px var(--wa);animation:blink 2s infinite}
+.ham{display:none;flex-direction:column;gap:5px;padding:4px}.ham span{display:block;width:20px;height:1px;background:var(--muted);transition:.3s}
+#navDrawer{position:fixed;top:0;right:0;bottom:0;width:290px;background:rgba(8,12,16,.98);border-left:1px solid var(--border);backdrop-filter:blur(20px);z-index:600;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;padding:80px 32px 40px;gap:4px}
+body[data-theme="light"] #navDrawer{background:rgba(244,249,255,.98)}#navDrawer.open{transform:translateX(0)}
+.drawer-link{font-size:16px;color:var(--muted);padding:14px 0;border-bottom:1px solid var(--border);transition:color .2s}.drawer-link:hover{color:var(--text)}
+#navOverlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:590;opacity:0;pointer-events:none;transition:opacity .3s}#navOverlay.show{opacity:1;pointer-events:all}
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:132px 48px 90px;overflow:hidden}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(79,195,247,.35),transparent)}
+.hero-grid-bg{position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(79,195,247,.034) 1px,transparent 1px),linear-gradient(90deg,rgba(79,195,247,.034) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 85% 80% at 50% 50%,black 16%,transparent 70%)}
+.container{max-width:1320px;margin:0 auto;width:100%}.hero-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:68px;align-items:center}
+.tag,.eyebrow{font-family:var(--font-mono);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:flex;align-items:center;gap:10px}.tag::before,.eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--accent)}
+h1{font-family:var(--font-display);font-size:clamp(42px,6.3vw,90px);font-weight:800;line-height:1.03;letter-spacing:-.035em;color:var(--text);margin:0 0 20px}
+h1 .dim{color:var(--muted2)}h1 .hl{color:var(--accent);position:relative}
+.lede,.lead{font-size:clamp(14px,1.5vw,17px);color:var(--muted);max-width:560px;line-height:1.78;margin-bottom:34px}
+.btns,.hero-actions{display:flex;gap:10px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:14px 28px;transition:all .2s;white-space:nowrap;border:1px solid var(--border2);background:var(--surface);color:var(--text)}
+.btn:hover{background:var(--surface2);transform:translateY(-2px);border-color:rgba(79,195,247,.24)}.btn-p,.btn-primary{background:var(--accent);color:#000;font-weight:700;border-color:var(--accent)}.btn-p:hover,.btn-primary:hover{opacity:.86;box-shadow:0 10px 32px rgba(79,195,247,.18)}
+.btn-wa,.btn-green{background:rgba(37,211,102,.1);color:var(--wa);border-color:rgba(37,211,102,.25)}.btn-wa:hover,.btn-green:hover{background:rgba(37,211,102,.18)}
+.visual-card{background:rgba(8,12,16,.62);border:1px solid var(--border2);backdrop-filter:blur(20px);box-shadow:var(--shadow);min-height:520px;position:relative;overflow:hidden;padding:22px;display:flex;flex-direction:column;justify-content:space-between}
+body[data-theme="light"] .visual-card{background:rgba(255,255,255,.68)}
+.visual-main{min-height:360px;border:1px dashed rgba(79,195,247,.28);display:grid;place-items:center;text-align:center;background:radial-gradient(circle at 50% 45%,rgba(79,195,247,.11),transparent 58%)}
+.visual-main b{font-family:var(--font-display);font-size:28px;letter-spacing:-.03em}.visual-main span{display:block;color:var(--muted);font-size:13px;margin-top:8px}.sizes{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-top:12px}
+.floating-panel{position:absolute;background:rgba(8,12,16,.82);border:1px solid var(--border2);backdrop-filter:blur(18px);padding:12px 15px;box-shadow:var(--shadow)}
+body[data-theme="light"] .floating-panel{background:rgba(255,255,255,.88)}
+.fp1{bottom:16%;left:-18px;animation:floatY 7s ease-in-out infinite}.fp2{top:18%;right:-18px;animation:floatY 8s ease-in-out infinite reverse}
+.fp-label{font-family:var(--font-mono);font-size:8px;letter-spacing:.2em;color:var(--muted2);text-transform:uppercase}.fp-val{font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--accent)}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.sec{padding:104px 48px}.sec-sm{padding:72px 48px}.section-head,.prod-header,.wiz-header{text-align:center;margin-bottom:56px}.section-head .tag,.prod-header .tag,.wiz-header .tag{justify-content:center}.section-head .tag::before,.prod-header .tag::before,.wiz-header .tag::before{display:none}
+h2{font-family:var(--font-display);font-size:clamp(28px,3.8vw,54px);font-weight:800;line-height:1.08;letter-spacing:-.025em;color:var(--text);margin-bottom:14px}.section-head p{color:var(--muted);max-width:700px;margin:0 auto;line-height:1.75}
+.grid-3,.kit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.card,.kit-card,.panel,.product-card,.prod-card,.type-card,.budget-card{background:var(--bg);border:1px solid var(--border);padding:28px;position:relative;overflow:hidden;transition:background .25s,border-color .25s,transform .25s}
+.card:hover,.kit-card:hover,.panel:hover,.product-card:hover,.prod-card:hover,.type-card:hover,.budget-card:hover{background:rgba(79,195,247,.035);border-color:rgba(79,195,247,.22);transform:translateY(-2px)}
+body[data-theme="light"] .card,body[data-theme="light"] .kit-card,body[data-theme="light"] .panel,body[data-theme="light"] .product-card,body[data-theme="light"] .prod-card,body[data-theme="light"] .type-card,body[data-theme="light"] .budget-card{background:rgba(255,255,255,.72)}
+.card::before,.kit-card::before,.panel::before,.product-card::before,.prod-card::before,.type-card::before,.budget-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transition:transform .35s;transform-origin:left}
+.card:hover::before,.kit-card:hover::before,.panel:hover::before,.product-card:hover::before,.prod-card:hover::before,.type-card:hover::before,.budget-card:hover::before{transform:scaleX(1)}
+.icon,.type-icon{font-size:30px;margin-bottom:16px}.card h3,.kit-card h3,.panel h3,.product-card h3,.type-card h3{font-family:var(--font-display);font-size:26px;line-height:1.05;letter-spacing:-.025em;margin-bottom:10px;color:var(--text)}
+.card p,.kit-card p,.panel p,.product-card p,.type-card p{color:var(--muted);font-size:13px;line-height:1.7}.card ul,.kit-list,.type-card ul{display:flex;flex-direction:column;gap:8px;margin-top:18px;color:var(--muted);font-size:12px}.card li::before,.kit-list li::before,.type-card li::before{content:'—';color:var(--accent);margin-right:7px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}.media-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:1px;background:var(--border)}
+.media-main,.media-side{background:var(--bg);min-height:420px;display:grid;place-items:center;text-align:center;padding:28px}.media-side{min-height:210px}.placeholder-title{font-family:var(--font-display);font-size:28px;font-weight:800}.placeholder-copy{color:var(--muted);margin-top:8px}
+.product-grid,.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.product-card img{height:170px;object-fit:contain;margin:auto;filter:drop-shadow(0 24px 36px rgba(0,0,0,.42))}.tag-mini,.tag{font-family:var(--font-mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.price{font-family:var(--font-display);font-size:23px;font-weight:800;color:var(--text);letter-spacing:-.02em}.kit-note{font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent3);margin-bottom:12px}
+.cta{padding:104px 48px}.cta-box{border:1px solid var(--border2);background:linear-gradient(135deg,rgba(79,195,247,.08),rgba(167,139,250,.045));padding:48px;display:flex;align-items:center;justify-content:space-between;gap:24px;box-shadow:var(--shadow)}.cta h2{font-size:clamp(34px,5.5vw,74px);margin:0}.cta p{color:var(--muted);max-width:620px}
+.footer{padding:46px 48px;border-top:1px solid var(--border);color:var(--muted);font-size:12px}.footer .container{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+/* Finder */
+.finder{background:var(--bg2)}.finder-box{background:var(--surface);border:1px solid var(--border);backdrop-filter:blur(16px);box-shadow:var(--shadow);padding:44px;min-height:520px}.progress{display:flex;justify-content:center;gap:6px;margin-bottom:36px}.bar{width:34px;height:2px;background:var(--border2)}.bar.active,.bar.done{background:var(--accent)}.question{display:none}.question.active{display:block;animation:fadeUp .28s ease}.q-top{margin-bottom:24px}.q-kicker{font-family:var(--font-mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-bottom:8px}.question h3{font-family:var(--font-display);font-size:clamp(24px,3vw,38px);line-height:1.06;letter-spacing:-.025em}.q-sub{color:var(--muted);margin-top:8px}.options{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.option{border:1px solid var(--border);background:transparent;color:var(--text);text-align:left;min-height:125px;padding:18px;cursor:pointer;transition:.2s}.option:hover,.option.selected{border-color:rgba(79,195,247,.42);background:var(--accent-dim)}.option .oi{font-size:24px;display:block;margin-bottom:8px}.option strong{display:block;font-size:14px;color:var(--text)}.option span:last-child{display:block;color:var(--muted);margin-top:4px;font-size:12px}.finder-nav{display:flex;align-items:center;justify-content:space-between;margin-top:30px}.step{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;color:var(--muted2)}.result{display:none}.result.active{display:block;animation:fadeUp .3s ease}.result-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:1px;background:var(--border)}.result .product-card{min-height:420px}.result .product-card img{height:210px}.badge{display:inline-flex;width:max-content;border:1px solid rgba(79,195,247,.28);color:var(--accent);font-family:var(--font-mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;padding:6px 9px}.explain{background:var(--bg);border:1px solid var(--border);padding:28px}.micro-copy{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}.profile-box{border:1px solid rgba(79,195,247,.24);background:var(--accent-dim);padding:14px;margin-bottom:18px}.profile-box span,.explain p{color:var(--muted)}.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0}.spec{border:1px solid var(--border);padding:14px}.spec b{font-family:var(--font-display);font-size:20px}.spec span{display:block;font-family:var(--font-mono);font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted2)}.alt{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);padding:10px 0;color:var(--muted)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@media(max-width:1100px){.product-grid,.prod-grid{grid-template-columns:repeat(2,1fr)}.hero-layout{grid-template-columns:1fr}.visual-card{min-height:420px}.grid-3,.kit-grid{grid-template-columns:1fr}.split,.result-grid{grid-template-columns:1fr}}
+@media(max-width:768px){#nav{padding:14px 20px}#nav.stuck{padding:10px 20px}.nav-links,.nav-end{display:none}.ham{display:flex}.hero{padding:120px 20px 72px}.sec,.cta{padding:72px 20px}.media-grid,.product-grid,.prod-grid,.options{grid-template-columns:1fr}.finder-box{padding:26px}.footer{padding:36px 20px}.cta-box{display:block}.btns,.hero-actions{flex-direction:column}.nav-logo-img{width:66px}.floating-panel{display:none}}
+
+/* Day-mode glass enhancement + panoramic drone background */
+.hero{isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(90deg,rgba(4,8,12,.82) 0%,rgba(4,8,12,.62) 38%,rgba(4,8,12,.38) 62%,rgba(4,8,12,.68) 100%),linear-gradient(180deg,rgba(4,8,12,.50) 0%,rgba(4,8,12,.20) 42%,rgba(4,8,12,.55) 100%),url('assets/images/drone-panorama-hero.png');background-size:cover;background-position:center center;background-repeat:no-repeat;opacity:.92;transform:scale(1.02)}
+.hero-grid-bg{opacity:.85}
+body[data-theme="light"] .hero::before{background-image:linear-gradient(90deg,rgba(244,251,255,.78) 0%,rgba(244,251,255,.56) 38%,rgba(244,251,255,.22) 62%,rgba(244,251,255,.48) 100%),linear-gradient(180deg,rgba(244,251,255,.18) 0%,rgba(244,251,255,.02) 45%,rgba(244,251,255,.40) 100%),url('assets/images/drone-panorama-hero.png');opacity:1;filter:saturate(1.06) contrast(1.02) brightness(1.02)}
+body[data-theme="light"] #nav.stuck{background:rgba(247,252,255,.34);backdrop-filter:blur(22px) saturate(165%);border-bottom-color:rgba(255,255,255,.42);box-shadow:0 14px 42px rgba(72,118,156,.12)}
+body[data-theme="light"] #navDrawer{background:rgba(245,250,255,.62);backdrop-filter:blur(26px) saturate(160%);border-left-color:rgba(255,255,255,.4)}
+body[data-theme="light"] .theme-icon,body[data-theme="light"] .nav-wa,body[data-theme="light"] .btn,body[data-theme="light"] .option,body[data-theme="light"] .finder-box,body[data-theme="light"] .visual-card,body[data-theme="light"] .floating-panel,body[data-theme="light"] .card,body[data-theme="light"] .panel,body[data-theme="light"] .product-card,body[data-theme="light"] .kit-card,body[data-theme="light"] .media-main,body[data-theme="light"] .media-side,body[data-theme="light"] .cta-box,body[data-theme="light"] .explain{background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,.22));backdrop-filter:blur(24px) saturate(165%);-webkit-backdrop-filter:blur(24px) saturate(165%);border-color:rgba(255,255,255,.46);box-shadow:0 18px 58px rgba(87,132,170,.12), inset 0 1px 0 rgba(255,255,255,.55)}
+body[data-theme="light"] .finder-box{background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.24))}
+body[data-theme="light"] .btn:hover,body[data-theme="light"] .theme-icon:hover,body[data-theme="light"] .option:hover,body[data-theme="light"] .option.selected{background:linear-gradient(180deg,rgba(255,255,255,.56),rgba(213,239,255,.34));border-color:rgba(21,159,227,.36)}
+body[data-theme="light"] .btn-p,body[data-theme="light"] .btn-primary{background:linear-gradient(135deg,rgba(21,159,227,.90),rgba(115,214,255,.90));color:#02111c;border-color:rgba(21,159,227,.65);box-shadow:0 16px 42px rgba(21,159,227,.22)}
+body[data-theme="light"] .btn-wa,body[data-theme="light"] .nav-wa{background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,.20));color:#0c8d4f;border-color:rgba(37,211,102,.32)}
+body[data-theme="light"] .visual-main,body[data-theme="light"] .media-main,body[data-theme="light"] .media-side{background:radial-gradient(circle at 22% 18%,rgba(132,214,255,.38),transparent 28%),linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,.16))}
+body[data-theme="light"] .floating-panel .fp-val{color:#138fd1}
+body[data-theme="light"] h1{color:#031421;text-shadow:0 1px 0 rgba(255,255,255,.35)}
+body[data-theme="light"] h1 .dim{color:rgba(7,17,28,.48)}
+body[data-theme="light"] .lede,body[data-theme="light"] .lead{color:rgba(7,17,28,.72)}
+body[data-theme="light"] .hero-grid-bg{opacity:.32;mix-blend-mode:screen}
+body[data-theme="light"] .cta-box{background:linear-gradient(135deg,rgba(255,255,255,.34),rgba(221,243,255,.24))}
+body[data-theme="light"] .footer{background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.08))}
+body[data-theme="light"] .tag,body[data-theme="light"] .eyebrow,body[data-theme="light"] .sizes,body[data-theme="light"] .micro-copy{color:#138fd1}
+body[data-theme="light"] .tag::before,body[data-theme="light"] .eyebrow::before{background:#138fd1}
+@media(max-width:768px){.hero::before{background-position:64% center}}
+
+
+/* Global day panorama background: glass UI over drone photo */
+body[data-theme="light"]{
+  background:#eaf6ff;
+}
+body[data-theme="light"]::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-4;
+  background-image:
+    linear-gradient(90deg,rgba(244,251,255,.84) 0%,rgba(244,251,255,.58) 36%,rgba(244,251,255,.32) 62%,rgba(244,251,255,.58) 100%),
+    linear-gradient(180deg,rgba(244,251,255,.36) 0%,rgba(244,251,255,.16) 42%,rgba(244,251,255,.70) 100%),
+    url("assets/images/drone-panorama-hero.png");
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  filter:saturate(1.05) contrast(1.02) brightness(1.03);
+}
+body[data-theme="light"]::after{
+  z-index:-3;
+  opacity:.075;
+  mix-blend-mode:screen;
+}
+body[data-theme="light"] .hero::before{
+  background:none !important;
+  opacity:0 !important;
+}
+body[data-theme="light"] .hero-grid-bg{
+  opacity:.24;
+  mix-blend-mode:screen;
+}
+body[data-theme="light"] #nav{
+  background:rgba(255,255,255,.10);
+  border-bottom-color:rgba(255,255,255,.18);
+  backdrop-filter:blur(18px) saturate(150%);
+  -webkit-backdrop-filter:blur(18px) saturate(150%);
+}
+body[data-theme="light"] #nav.stuck{
+  background:rgba(255,255,255,.24);
+  border-bottom-color:rgba(255,255,255,.42);
+  backdrop-filter:blur(24px) saturate(175%);
+  -webkit-backdrop-filter:blur(24px) saturate(175%);
+}
+body[data-theme="light"] .visual-card,
+body[data-theme="light"] .floating-panel,
+body[data-theme="light"] .card,
+body[data-theme="light"] .panel,
+body[data-theme="light"] .product-card,
+body[data-theme="light"] .kit-card,
+body[data-theme="light"] .media-main,
+body[data-theme="light"] .media-side,
+body[data-theme="light"] .cta-box,
+body[data-theme="light"] .finder-box,
+body[data-theme="light"] .explain,
+body[data-theme="light"] .option,
+body[data-theme="light"] .spec,
+body[data-theme="light"] .profile-box{
+  background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.18)) !important;
+  border-color:rgba(255,255,255,.46) !important;
+  backdrop-filter:blur(26px) saturate(180%) !important;
+  -webkit-backdrop-filter:blur(26px) saturate(180%) !important;
+  box-shadow:0 20px 70px rgba(45,96,138,.14), inset 0 1px 0 rgba(255,255,255,.62) !important;
+}
+body[data-theme="light"] .grid-3,
+body[data-theme="light"] .kit-grid,
+body[data-theme="light"] .split,
+body[data-theme="light"] .product-grid,
+body[data-theme="light"] .media-grid,
+body[data-theme="light"] .result-grid{
+  background:rgba(255,255,255,.34);
+  backdrop-filter:blur(10px) saturate(140%);
+  -webkit-backdrop-filter:blur(10px) saturate(140%);
+  border:1px solid rgba(255,255,255,.28);
+}
+body[data-theme="light"] .sec,
+body[data-theme="light"] .sec-sm,
+body[data-theme="light"] .cta,
+body[data-theme="light"] .finder{
+  background:transparent !important;
+}
+body[data-theme="light"] .footer{
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
+  border-top-color:rgba(255,255,255,.34);
+}
+body[data-theme="light"] .visual-main,
+body[data-theme="light"] .media-main,
+body[data-theme="light"] .media-side{
+  background:radial-gradient(circle at 24% 18%,rgba(116,208,255,.36),transparent 34%),linear-gradient(180deg,rgba(255,255,255,.26),rgba(255,255,255,.12)) !important;
+}
+body[data-theme="light"] h1,
+body[data-theme="light"] h2,
+body[data-theme="light"] h3{
+  color:#041522;
+  text-shadow:0 1px 0 rgba(255,255,255,.34);
+}
+body[data-theme="light"] .lede,
+body[data-theme="light"] .lead,
+body[data-theme="light"] p,
+body[data-theme="light"] .placeholder-copy{
+  color:rgba(4,21,34,.72);
+}
+body[data-theme="light"] .btn:not(.btn-p):not(.btn-primary):not(.btn-wa):not(.btn-green),
+body[data-theme="light"] .theme-icon{
+  background:rgba(255,255,255,.25) !important;
+  border-color:rgba(255,255,255,.46) !important;
+  backdrop-filter:blur(20px) saturate(165%);
+  -webkit-backdrop-filter:blur(20px) saturate(165%);
+}
+body[data-theme="light"] .btn-p,
+body[data-theme="light"] .btn-primary{
+  background:linear-gradient(135deg,rgba(21,159,227,.92),rgba(120,218,255,.92)) !important;
+  color:#02111c !important;
+  border-color:rgba(21,159,227,.68) !important;
+}
+body[data-theme="light"] .btn-wa,
+body[data-theme="light"] .btn-green,
+body[data-theme="light"] .nav-wa{
+  background:rgba(255,255,255,.24) !important;
+  border-color:rgba(37,211,102,.34) !important;
+  backdrop-filter:blur(20px) saturate(165%);
+  -webkit-backdrop-filter:blur(20px) saturate(165%);
+}
+body[data-theme="light"] #navDrawer{
+  background:rgba(255,255,255,.30) !important;
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  border-left-color:rgba(255,255,255,.48);
+}
+@media(max-width:768px){
+  body[data-theme="light"]::before{
+    background-position:63% center;
+    background-attachment:scroll;
+  }
+}
+
+
+/* Final panorama switching: sharp day/night backgrounds */
+body[data-theme="dark"]::before,
+body:not([data-theme="light"])::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-4;
+  background-image:
+    linear-gradient(90deg,rgba(4,7,12,.86) 0%,rgba(4,7,12,.68) 34%,rgba(4,7,12,.48) 60%,rgba(4,7,12,.78) 100%),
+    linear-gradient(180deg,rgba(4,7,12,.36) 0%,rgba(4,7,12,.12) 42%,rgba(4,7,12,.76) 100%),
+    url("assets/images/drone-panorama-night.png");
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  filter:saturate(1.02) contrast(1.02) brightness(.96);
+}
+body[data-theme="light"]::before{
+  background-image:
+    linear-gradient(90deg,rgba(244,251,255,.84) 0%,rgba(244,251,255,.58) 36%,rgba(244,251,255,.32) 62%,rgba(244,251,255,.58) 100%),
+    linear-gradient(180deg,rgba(244,251,255,.36) 0%,rgba(244,251,255,.16) 42%,rgba(244,251,255,.70) 100%),
+    url("assets/images/drone-panorama-day.png") !important;
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+}
+/* Disable section-specific panorama so the whole site uses the global switching background */
+.hero::before{background:none !important;opacity:0 !important}
+.hero-grid-bg{opacity:.35}
+body[data-theme="dark"] .hero-grid-bg{mix-blend-mode:screen;opacity:.22}
+body[data-theme="dark"] #nav{background:rgba(5,9,14,.10);border-bottom-color:rgba(255,255,255,.05);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%)}
+body[data-theme="dark"] #nav.stuck{background:rgba(5,9,14,.34);border-bottom-color:rgba(255,255,255,.12);backdrop-filter:blur(24px) saturate(175%);-webkit-backdrop-filter:blur(24px) saturate(175%)}
+body[data-theme="dark"] .visual-card,
+body[data-theme="dark"] .floating-panel,
+body[data-theme="dark"] .card,
+body[data-theme="dark"] .panel,
+body[data-theme="dark"] .product-card,
+body[data-theme="dark"] .kit-card,
+body[data-theme="dark"] .media-main,
+body[data-theme="dark"] .media-side,
+body[data-theme="dark"] .cta-box,
+body[data-theme="dark"] .finder-box,
+body[data-theme="dark"] .explain,
+body[data-theme="dark"] .option,
+body[data-theme="dark"] .spec,
+body[data-theme="dark"] .profile-box{
+  background:linear-gradient(180deg,rgba(7,12,18,.42),rgba(7,12,18,.24)) !important;
+  border-color:rgba(255,255,255,.16) !important;
+  backdrop-filter:blur(24px) saturate(165%) !important;
+  -webkit-backdrop-filter:blur(24px) saturate(165%) !important;
+  box-shadow:0 20px 70px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+body[data-theme="dark"] .grid-3,
+body[data-theme="dark"] .kit-grid,
+body[data-theme="dark"] .split,
+body[data-theme="dark"] .product-grid,
+body[data-theme="dark"] .media-grid,
+body[data-theme="dark"] .result-grid{background:rgba(255,255,255,.05);backdrop-filter:blur(8px) saturate(125%);-webkit-backdrop-filter:blur(8px) saturate(125%);border:1px solid rgba(255,255,255,.08)}
+body[data-theme="dark"] .footer{background:rgba(6,10,14,.22);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);border-top-color:rgba(255,255,255,.12)}
+body[data-theme="dark"] .btn:not(.btn-p):not(.btn-primary):not(.btn-wa):not(.btn-green),body[data-theme="dark"] .theme-icon{background:rgba(10,16,22,.28) !important;border-color:rgba(255,255,255,.18) !important}
+@media(max-width:768px){
+  body[data-theme="dark"]::before,body[data-theme="light"]::before{background-position:63% center;background-attachment:scroll}
+}
+
+
+/* Premium cinematic night mode */
+body[data-theme="dark"],
+body:not([data-theme="light"]) {
+  --accent:#62d6ff;
+  --accent2:#7d7cff;
+}
+body[data-theme="dark"]::before,
+body:not([data-theme="light"])::before{
+  background-image:
+    radial-gradient(circle at 78% 22%, rgba(73,186,255,.18), transparent 22%),
+    radial-gradient(circle at 88% 34%, rgba(255,184,77,.10), transparent 18%),
+    linear-gradient(90deg,rgba(2,6,12,.90) 0%,rgba(2,6,12,.74) 34%,rgba(2,6,12,.50) 60%,rgba(2,6,12,.82) 100%),
+    linear-gradient(180deg,rgba(2,6,12,.34) 0%,rgba(2,6,12,.10) 42%,rgba(2,6,12,.84) 100%),
+    url("assets/images/drone-panorama-night.png") !important;
+  filter:saturate(1.10) contrast(1.08) brightness(.92);
+}
+body[data-theme="dark"]::after,
+body:not([data-theme="light"])::after{
+  opacity:.055;
+}
+body[data-theme="dark"] #nav,
+body:not([data-theme="light"]) #nav{
+  background:rgba(3,9,16,.12);
+  border-bottom-color:rgba(255,255,255,.06);
+}
+body[data-theme="dark"] #nav.stuck,
+body:not([data-theme="light"]) #nav.stuck{
+  background:rgba(3,9,16,.42);
+  border-bottom-color:rgba(98,214,255,.18);
+  box-shadow:0 18px 44px rgba(0,0,0,.22);
+}
+body[data-theme="dark"] .visual-card,
+body[data-theme="dark"] .floating-panel,
+body[data-theme="dark"] .card,
+body[data-theme="dark"] .panel,
+body[data-theme="dark"] .product-card,
+body[data-theme="dark"] .kit-card,
+body[data-theme="dark"] .media-main,
+body[data-theme="dark"] .media-side,
+body[data-theme="dark"] .cta-box,
+body[data-theme="dark"] .finder-box,
+body[data-theme="dark"] .explain,
+body[data-theme="dark"] .option,
+body[data-theme="dark"] .spec,
+body[data-theme="dark"] .profile-box,
+body:not([data-theme="light"]) .visual-card,
+body:not([data-theme="light"]) .floating-panel,
+body:not([data-theme="light"]) .card,
+body:not([data-theme="light"]) .panel,
+body:not([data-theme="light"]) .product-card,
+body:not([data-theme="light"]) .kit-card,
+body:not([data-theme="light"]) .media-main,
+body:not([data-theme="light"]) .media-side,
+body:not([data-theme="light"]) .cta-box,
+body:not([data-theme="light"]) .finder-box,
+body:not([data-theme="light"]) .explain,
+body:not([data-theme="light"]) .option,
+body:not([data-theme="light"]) .spec,
+body:not([data-theme="light"]) .profile-box{
+  background:linear-gradient(180deg,rgba(7,14,22,.54),rgba(7,14,22,.30)) !important;
+  border-color:rgba(98,214,255,.16) !important;
+  box-shadow:
+    0 28px 80px rgba(0,0,0,.32),
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 0 0 1px rgba(255,255,255,.02) !important;
+}
+body[data-theme="dark"] .visual-card,
+body[data-theme="dark"] .finder-box,
+body[data-theme="dark"] .cta-box,
+body:not([data-theme="light"]) .visual-card,
+body:not([data-theme="light"]) .finder-box,
+body:not([data-theme="light"]) .cta-box{
+  backdrop-filter:blur(28px) saturate(175%) !important;
+  -webkit-backdrop-filter:blur(28px) saturate(175%) !important;
+}
+body[data-theme="dark"] .grid-3,
+body[data-theme="dark"] .kit-grid,
+body[data-theme="dark"] .split,
+body[data-theme="dark"] .product-grid,
+body[data-theme="dark"] .media-grid,
+body[data-theme="dark"] .result-grid,
+body:not([data-theme="light"]) .grid-3,
+body:not([data-theme="light"]) .kit-grid,
+body:not([data-theme="light"]) .split,
+body:not([data-theme="light"]) .product-grid,
+body:not([data-theme="light"]) .media-grid,
+body:not([data-theme="light"]) .result-grid{
+  background:rgba(98,214,255,.045);
+  border:1px solid rgba(98,214,255,.08);
+}
+body[data-theme="dark"] .btn-p,
+body[data-theme="dark"] .btn-primary,
+body:not([data-theme="light"]) .btn-p,
+body:not([data-theme="light"]) .btn-primary{
+  background:linear-gradient(135deg,rgba(98,214,255,.96),rgba(123,181,255,.94));
+  box-shadow:0 16px 40px rgba(98,214,255,.20), 0 0 24px rgba(98,214,255,.10);
+}
+body[data-theme="dark"] .btn:not(.btn-p):not(.btn-primary):not(.btn-wa):not(.btn-green),
+body[data-theme="dark"] .theme-icon,
+body:not([data-theme="light"]) .btn:not(.btn-p):not(.btn-primary):not(.btn-wa):not(.btn-green),
+body:not([data-theme="light"]) .theme-icon{
+  background:rgba(7,14,22,.34) !important;
+  border-color:rgba(98,214,255,.18) !important;
+}
+body[data-theme="dark"] .btn-wa,
+body[data-theme="dark"] .btn-green,
+body[data-theme="dark"] .nav-wa,
+body:not([data-theme="light"]) .btn-wa,
+body:not([data-theme="light"]) .btn-green,
+body:not([data-theme="light"]) .nav-wa{
+  background:rgba(7,14,22,.30) !important;
+  border-color:rgba(37,211,102,.26) !important;
+}
+body[data-theme="dark"] h1,
+body[data-theme="dark"] h2,
+body[data-theme="dark"] h3,
+body:not([data-theme="light"]) h1,
+body:not([data-theme="light"]) h2,
+body:not([data-theme="light"]) h3{
+  text-shadow:0 2px 20px rgba(0,0,0,.18);
+}
+body[data-theme="dark"] .tag,
+body[data-theme="dark"] .eyebrow,
+body[data-theme="dark"] .sizes,
+body[data-theme="dark"] .micro-copy,
+body:not([data-theme="light"]) .tag,
+body:not([data-theme="light"]) .eyebrow,
+body:not([data-theme="light"]) .sizes,
+body:not([data-theme="light"]) .micro-copy{color:#6fdcff}
+body[data-theme="dark"] .tag::before,
+body[data-theme="dark"] .eyebrow::before,
+body:not([data-theme="light"]) .tag::before,
+body:not([data-theme="light"]) .eyebrow::before{background:#6fdcff}
+body[data-theme="dark"] .price,
+body:not([data-theme="light"]) .price{color:#f5fbff}
+body[data-theme="dark"] .footer,
+body:not([data-theme="light"]) .footer{
+  background:rgba(3,9,16,.28);
+  border-top-color:rgba(98,214,255,.10);
+}
+
+
+/* Commercial copy upgrade: asesoría, servicios, capacitación */
+.service-grid,.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.advice-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:1px;background:var(--border)}
+.service-card,.trust-card,.advice-card{
+  background:var(--bg);
+  border:1px solid var(--border);
+  padding:28px;
+  position:relative;
+  overflow:hidden;
+  transition:background .25s,border-color .25s,transform .25s;
+}
+.service-card:hover,.trust-card:hover,.advice-card:hover{
+  background:rgba(79,195,247,.035);
+  border-color:rgba(79,195,247,.22);
+  transform:translateY(-2px);
+}
+.service-card::before,.trust-card::before,.advice-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transform:scaleX(0);transition:transform .35s;transform-origin:left;
+}
+.service-card:hover::before,.trust-card:hover::before,.advice-card:hover::before{transform:scaleX(1)}
+.service-card h3,.trust-card h3,.advice-card h3{
+  font-family:var(--font-display);
+  font-size:24px;
+  line-height:1.05;
+  letter-spacing:-.025em;
+  margin:12px 0 10px;
+  color:var(--text);
+}
+.service-card p,.trust-card p,.advice-card p{color:var(--muted);font-size:13px;line-height:1.7}
+.service-card ul,.advice-card ul{display:flex;flex-direction:column;gap:8px;margin-top:18px;color:var(--muted);font-size:12px}
+.service-card li::before,.advice-card li::before{content:'—';color:var(--accent);margin-right:7px}
+.commercial-note{
+  margin-top:18px;
+  padding:16px;
+  border:1px solid rgba(79,195,247,.18);
+  background:var(--accent-dim);
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+.kit-meta{display:grid;grid-template-columns:1fr;gap:10px;margin:18px 0}
+.kit-meta-block{border:1px solid var(--border);padding:13px;background:rgba(255,255,255,.025)}
+.kit-meta-block b{display:block;font-family:var(--font-mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
+.kit-meta-block span{display:block;color:var(--muted);font-size:12px;line-height:1.6}
+.result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+body[data-theme="light"] .service-card,
+body[data-theme="light"] .trust-card,
+body[data-theme="light"] .advice-card,
+body[data-theme="light"] .kit-meta-block{
+  background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.18));
+  border-color:rgba(255,255,255,.46);
+  backdrop-filter:blur(26px) saturate(180%);
+  -webkit-backdrop-filter:blur(26px) saturate(180%);
+}
+body[data-theme="dark"] .service-card,
+body[data-theme="dark"] .trust-card,
+body[data-theme="dark"] .advice-card,
+body[data-theme="dark"] .kit-meta-block{
+  background:linear-gradient(180deg,rgba(7,14,22,.54),rgba(7,14,22,.30));
+  border-color:rgba(98,214,255,.16);
+  backdrop-filter:blur(24px) saturate(165%);
+  -webkit-backdrop-filter:blur(24px) saturate(165%);
+}
+@media(max-width:1100px){.service-grid,.trust-grid{grid-template-columns:repeat(2,1fr)}.advice-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.service-grid,.trust-grid{grid-template-columns:1fr}.result-actions{flex-direction:column}}
+
+</style>
+</head>
+<body data-theme="dark">
+<div id="loader"><img class="ld-logo" src="assets/images/studiovr-logo.png" alt="Studio VR"><div class="ld-bar-wrap"><div class="ld-bar" id="ldBar"></div></div></div>
+
+<nav id="nav">
+  <a class="nav-logo" href="index.html"><img class="nav-logo-img" src="assets/images/studiovr-logo.png" alt="Studio VR"></a>
+  <div class="nav-links">
+    <a class="active" href="index.html">Inicio</a>
+    <a class="" href="drone-finder.html">Drone Finder</a>
+    <a href="index.html#venta-asesorada">Venta asesorada</a>
+    <a href="index.html#servicios">Servicios</a>
+    <a href="index.html#capacitacion">Capacitación</a>
+    <a class="" href="tienda.html">Tienda</a>
+    <a href="tienda.html#kits">Kits</a>
+    <a href="index.html#media">Media</a>
+  </div>
+  <div class="nav-end">
+    <button class="theme-icon" type="button" data-theme-toggle aria-label="Cambiar modo">☀</button>
+    <a class="nav-wa" href="https://wa.me/51976075630" target="_blank" rel="noopener"><span class="nav-wa-dot"></span>WhatsApp</a>
+  </div>
+  <button class="ham" type="button" id="ham" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+</nav>
+<div id="navOverlay"></div>
+<aside id="navDrawer">
+  <a class="drawer-link" href="index.html">Inicio</a>
+  <a class="drawer-link" href="drone-finder.html">Drone Finder</a>
+  <a class="drawer-link" href="index.html#venta-asesorada">Venta asesorada</a>
+  <a class="drawer-link" href="index.html#servicios">Servicios</a>
+  <a class="drawer-link" href="index.html#capacitacion">Capacitación</a>
+  <a class="drawer-link" href="tienda.html">Tienda</a>
+  <a class="drawer-link" href="tienda.html#kits">Kits</a>
+  <a class="drawer-link" href="index.html#media">Media</a>
+  <button class="theme-icon" type="button" data-theme-toggle aria-label="Cambiar modo">☀</button>
+  <a class="drawer-link" href="https://wa.me/51976075630" target="_blank" rel="noopener">WhatsApp</a>
+</aside>
+
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="container hero-layout">
+    <div>
+      <div class="tag">Studio VR · Venta, asesoría y servicios con drone</div>
+      <h1>Compra o cotiza el <span class="hl">drone correcto</span> con asesoría antes de invertir.</h1>
+      <p class="lede">En Studio VR te ayudamos a elegir drones DJI, kits, accesorios y servicios con drone para audiovisual, ingeniería y agricultura. Comparamos tu uso, presupuesto y nivel de experiencia para recomendarte una solución real.</p>
+      <div class="btns">
+        <a class="btn btn-p" href="drone-finder.html">Encontrar mi drone ideal</a>
+        <a class="btn btn-wa" href="https://wa.me/51976075630?text=Hola%20Studio%20VR%2C%20quiero%20cotizar%20un%20drone%20con%20asesor%C3%ADa%20antes%20de%20invertir" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+        <a class="btn" href="tienda.html#kits">Ver kits recomendados</a>
+      </div>
+    </div>
+    <div class="visual-card">
+      <div class="visual-main">
+        <div><b>Asesoría antes de comprar</b><span>Cuéntanos tu proyecto y te recomendamos modelo, kit o servicio.</span><div class="sizes">Venta · operación · capacitación · soporte inicial</div></div>
+      </div>
+      <div class="floating-panel fp1"><div class="fp-label">Soluciones</div><div class="fp-val">03</div></div>
+      <div class="floating-panel fp2"><div class="fp-label">Kits</div><div class="fp-val">+03</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="rutas">
+  <div class="container">
+    <div class="section-head"><div class="tag">Rutas de venta</div><h2>Tres rutas comerciales según el proyecto.</h2><p>Primero entendemos la necesidad real del cliente. Luego recomendamos compra asesorada, kit completo, servicio con drone o capacitación.</p></div>
+    <div class="grid-3">
+      <article class="card"><div class="icon">🎬</div><h3>Audiovisual</h3><p>Para creadores, inmobiliarias, turismo, restaurantes, eventos y marcas que necesitan contenido aéreo profesional o su primer drone para producir.</p><ul><li>Venta de drones creator</li><li>Servicios audiovisuales con drone</li><li>Kits con filtros ND, baterías y maletín</li></ul></article>
+      <article class="card"><div class="icon">📐</div><h3>Ingeniería</h3><p>Para empresas que necesitan inspección, topografía, avance de obra, mapeo o documentación técnica con drones enterprise.</p><ul><li>Asesoría en Mavic Enterprise y Matrice</li><li>Inspección, fotogrametría y RTK</li><li>Paquetes para operación B2B</li></ul></article>
+      <article class="card"><div class="icon">🌾</div><h3>Agricultura</h3><p>Para productores y empresas agrícolas que buscan monitoreo de cultivos, análisis multispectral o drones de aplicación como Agras.</p><ul><li>Monitoreo y diagnóstico agrícola</li><li>Soluciones Agras y Mavic 3M</li><li>Operación con aliados especializados</li></ul></article>
+    </div>
+  </div>
+</section>
+
+
+<section class="sec" id="venta-asesorada">
+  <div class="container">
+    <div class="section-head">
+      <div class="tag">Venta asesorada</div>
+      <h2>No vendemos solo drones: recomendamos la configuración correcta.</h2>
+      <p>Comparamos modelos, precios, accesorios y nivel de uso para recomendarte el drone correcto. Ideal si estás entre un Mini, Air, Mavic, Matrice o Agras y no quieres comprar de más ni quedarte corto.</p>
+    </div>
+    <div class="advice-grid">
+      <article class="advice-card">
+        <div class="tag-mini">Cómo trabajamos</div>
+        <h3>Diagnóstico antes de cotizar</h3>
+        <p>Primero entendemos tu proyecto: si vas a grabar contenido, inspeccionar, mapear, monitorear cultivos o comprar para una empresa.</p>
+        <ul>
+          <li>Uso real del drone</li>
+          <li>Presupuesto eficiente o avanzado</li>
+          <li>Accesorios necesarios para operar bien</li>
+          <li>Comparación entre modelos similares</li>
+        </ul>
+      </article>
+      <article class="advice-card">
+        <div class="tag-mini">Qué puedes comprar</div>
+        <h3>Drone suelto o kit completo</h3>
+        <p>Podemos cotizar solo el drone o armar un paquete completo con baterías, filtros, maletín, cargadores, soporte inicial y orientación de uso.</p>
+        <div class="commercial-note">La meta es que compres con seguridad: ni un equipo sobredimensionado ni un drone que se quede corto para tu trabajo.</div>
+        <a class="btn btn-p" href="drone-finder.html" style="margin-top:18px">🚨 Evaluación gratis</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="servicios">
+  <div class="container">
+    <div class="section-head">
+      <div class="tag">Servicios con drone</div>
+      <h2>Si aún no quieres comprar, también puedes cotizar operación.</h2>
+      <p>Studio VR puede ayudarte a cotizar servicios con drone para contenido, inspección, ingeniería o campo mediante operadores y aliados especializados.</p>
+    </div>
+    <div class="service-grid">
+      <article class="service-card"><div class="icon">🎬</div><h3>Audiovisual</h3><p>Grabación aérea para inmobiliarias, turismo, restaurantes, eventos, marcas y contenido para redes.</p><ul><li>Reels y piezas comerciales</li><li>Videos para venta inmobiliaria</li><li>Tomas aéreas para campañas</li></ul><a class="btn btn-wa" href="https://wa.me/51976075630?text=Hola%20Studio%20VR%2C%20quiero%20cotizar%20un%20servicio%20audiovisual%20con%20drone" target="_blank" rel="noopener">Cotizar servicio</a></article>
+      <article class="service-card"><div class="icon">🏗️</div><h3>Construcción</h3><p>Seguimiento de obra, registro de avance, inspección visual y material para reportes o presentaciones.</p><ul><li>Avance de obra</li><li>Inspección de estructuras</li><li>Documentación mensual</li></ul><a class="btn btn-wa" href="https://wa.me/51976075630?text=Hola%20Studio%20VR%2C%20necesito%20un%20servicio%20con%20drone%20para%20construcci%C3%B3n" target="_blank" rel="noopener">Solicitar asesoría</a></article>
+      <article class="service-card"><div class="icon">📐</div><h3>Topografía e inspección</h3><p>Levantamiento, fotogrametría, inspección técnica y evaluación de terrenos con drones enterprise.</p><ul><li>Mapeo y fotogrametría</li><li>Inspección de techos o activos</li><li>Flujo técnico con aliados</li></ul><a class="btn btn-wa" href="https://wa.me/51976075630?text=Hola%20Studio%20VR%2C%20necesito%20asesor%C3%ADa%20para%20topograf%C3%ADa%20o%20inspecci%C3%B3n%20con%20drone" target="_blank" rel="noopener">Cotizar técnico</a></article>
+      <article class="service-card"><div class="icon">🌾</div><h3>Agricultura</h3><p>Monitoreo de cultivos, multispectral o aplicación agrícola con soluciones especializadas y operadores aliados.</p><ul><li>Diagnóstico de cultivos</li><li>Multispectral</li><li>Agras / aplicación agrícola</li></ul><a class="btn btn-wa" href="https://wa.me/51976075630?text=Hola%20Studio%20VR%2C%20quiero%20cotizar%20una%20soluci%C3%B3n%20agr%C3%ADcola%20con%20drone" target="_blank" rel="noopener">Hablar con asesor agro</a></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="capacitacion">
+  <div class="container">
+    <div class="section-head">
+      <div class="tag">Capacitación y operación segura</div>
+      <h2>Te orientamos para usar el drone con criterio, no solo para comprarlo.</h2>
+      <p>Según el tipo de operación, puedes necesitar capacitación, práctica, flujo de trabajo, seguridad operacional o derivación a cursos especializados.</p>
+    </div>
+    <div class="trust-grid">
+      <article class="trust-card"><div class="icon">🧭</div><h3>Orientación inicial</h3><p>Te explicamos qué equipo y qué nivel de preparación necesitas según tu uso: creator, empresa, ingeniería o agro.</p></article>
+      <article class="trust-card"><div class="icon">🎓</div><h3>Capacitación aliada</h3><p>Podemos orientarte hacia cursos o especialistas para RPAS, fotogrametría, termografía o agricultura de precisión.</p></article>
+      <article class="trust-card"><div class="icon">🛡️</div><h3>Operación segura</h3><p>Recomendamos accesorios, baterías, maletín, checklist y prácticas para reducir errores al operar.</p></article>
+      <article class="trust-card"><div class="icon">🤝</div><h3>Soporte comercial</h3><p>Si aún no estás listo para comprar, te ayudamos a cotizar operación con drone o comparar alternativas.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec-sm">
+  <div class="container split">
+    <div class="panel"><div class="tag">Diagnóstico rápido</div><h3>Drone Finder</h3><p>Responde 5 preguntas y recibe una recomendación antes de cotizar. Ideal para no comprar por impulso.</p><a class="btn btn-p" href="drone-finder.html">Encontrar mi drone</a></div>
+    <div class="panel"><div class="tag">Catálogo + kits</div><h3>Tienda Studio VR</h3><p>Compra drones sueltos o kits completos según tu proyecto, presupuesto y tipo de operación.</p><a class="btn" href="tienda.html">Ver tienda</a></div>
+  </div>
+</section>
+
+<section class="sec" id="media">
+  <div class="container">
+    <div class="section-head"><div class="tag">Fotos y videos</div><h2>Espacios reservados para tu material real.</h2><p>En la siguiente conversación me entregas fotos y videos y los coloco en estos módulos.</p></div>
+    <div class="media-grid">
+      <div class="media-main"><div><div class="placeholder-title">Video principal de portada</div><div class="placeholder-copy">Dron volando, operador, ciudad, campo u obra.</div><div class="sizes">1920×1080 horizontal MP4</div></div></div>
+      <div style="display:grid;gap:1px;background:var(--border)">
+        <div class="media-side"><div><div class="placeholder-title">Foto audiovisual</div><div class="placeholder-copy">Inmobiliaria, creator o marca.</div><div class="sizes">1600×1200 JPG/WEBP</div></div></div>
+        <div class="media-side"><div><div class="placeholder-title">Foto técnica</div><div class="placeholder-copy">Ingeniería, agro u operación.</div><div class="sizes">1600×1200 JPG/WEBP</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta"><div class="container"><div class="cta-box"><div><h2>No compres un drone por impulso.</h2><p>Cuéntanos tu proyecto y te recomendamos la opción correcta: drone suelto, kit completo, servicio con drone o capacitación aliada.</p></div><a class="btn btn-p" href="https://wa.me/51976075630?text=Hola%20Studio%20VR%2C%20quiero%20asesor%C3%ADa%20para%20comprar%20o%20cotizar%20un%20drone" target="_blank" rel="noopener">Hablar con Studio VR</a></div></div></section>
+<footer class="footer"><div class="container"><span>Studio VR · Landing</span><span>WhatsApp: 976 075 630 · Lima / Perú</span></div></footer>
+
+<script>
+(function(){
+  const body=document.body;
+  const saved=localStorage.getItem('studioVRTheme')||'dark';
+  body.setAttribute('data-theme',saved);
+  function syncTheme(){
+    const light=body.getAttribute('data-theme')==='light';
+    document.querySelectorAll('[data-theme-toggle]').forEach(b=>{b.textContent=light?'☾':'☀';});
+  }
+  syncTheme();
+  document.addEventListener('click',e=>{
+    const btn=e.target.closest('[data-theme-toggle]');
+    if(!btn)return;
+    const next=body.getAttribute('data-theme')==='light'?'dark':'light';
+    body.setAttribute('data-theme',next);
+    localStorage.setItem('studioVRTheme',next);
+    syncTheme();
+  });
+  const nav=document.getElementById('nav');
+  const onScroll=()=>{ if(window.scrollY>18) nav?.classList.add('stuck'); else nav?.classList.remove('stuck'); };
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+  const ham=document.getElementById('ham'), drawer=document.getElementById('navDrawer'), overlay=document.getElementById('navOverlay');
+  function close(){drawer?.classList.remove('open');overlay?.classList.remove('show')}
+  ham?.addEventListener('click',()=>{drawer?.classList.add('open');overlay?.classList.add('show')});
+  overlay?.addEventListener('click',close); drawer?.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+  const ld=document.getElementById('loader'), bar=document.getElementById('ldBar');
+  if(bar) requestAnimationFrame(()=>bar.style.width='100%');
+  window.addEventListener('load',()=>setTimeout(()=>ld?.classList.add('out'),520));
+})();
+</script>
+
+</body>
+</html>

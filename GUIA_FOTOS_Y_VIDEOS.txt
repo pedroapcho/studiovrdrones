@@ -1,0 +1,37 @@
+STUDIO VR - GUÍA PARA ENTREGAR FOTOS Y VIDEOS
+
+La web ya está con diseño estilo Studio VR final:
+- estética oscura/cinemática
+- modo día/noche con un solo botón de símbolo
+- landing principal
+- Drone Finder
+- tienda + kits
+
+Para reemplazar los placeholders:
+1) Video hero principal: MP4 horizontal 1920x1080, 8-15 segundos, menos de 15 MB.
+2) Foto audiovisual: JPG/WEBP 1600x1200 o más.
+3) Foto técnica/ingeniería: JPG/WEBP 1600x1200 o más.
+4) Foto agro/campo: JPG/WEBP 1600x1200 o más.
+5) Reels verticales: MP4 1080x1920, 6-12 segundos.
+
+
+Actualización: el modo día ahora usa un acabado glass y un fondo panorámico estilo foto tomada con drone.
+
+Actualización final: el modo día usa el fondo panorámico global de drone en toda la web y todos los módulos glass flotan encima de esa imagen.
+
+Actualización: ahora el fondo cambia automáticamente entre imagen panorámica de día y de noche según el modo seleccionado. También se reemplazó la imagen de día por una versión más nítida para evitar pixelación.
+
+CAMBIOS COMERCIALES APLICADOS:
+- Hero principal enfocado en compra/cotización con asesoría antes de invertir.
+- Nueva sección Venta asesorada.
+- Nueva sección Servicios con drone.
+- Nueva sección Capacitación y operación segura.
+- Tienda reformulada como drones sueltos + kits completos.
+- Kits con jerarquía: incluye / ideal para / siguiente paso.
+- Drone Finder reformulado como diagnóstico rápido.
+- Resultado del finder con CTA para cotizar drone y armar kit completo.
+- WhatsApp con mensajes diferenciados por sección.
+- Cierre comercial: no comprar por impulso, consultar proyecto.
+
+
+Correcciones aplicadas: hero sintetizado, botones '🚨 Evaluación gratis' y título de Drone Finder actualizado.
